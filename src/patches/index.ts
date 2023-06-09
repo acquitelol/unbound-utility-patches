@@ -3,12 +3,16 @@ import { Section } from '../common/store';
 import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
+import omitDisconnect from './omitDisconnect';
+import bypassNsfwGate from './bypassNsfwGate';
+
+import earlyPronouns from "./earlyPronouns";
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
 
 import roleDots from "./roleDots";
 import mediaItems from "./mediaItems";
-import earlyPronouns from "./earlyPronouns";
+import sourceAnimation from './sourceAnimation';
 import expandableSheet from "./expandableSheet";
 
 export const sections: Record<string, Section> = {
@@ -18,6 +22,14 @@ export const sections: Record<string, Section> = {
             headerPrimary,
             jsonFix,
             tenorFix,
+            omitDisconnect,
+            bypassNsfwGate
+        }
+    },
+    utilities: {
+        icon: "debug",
+        patches: {
+            earlyPronouns,
             doubleTap,
             usernameMention
         }
@@ -27,7 +39,7 @@ export const sections: Record<string, Section> = {
         patches: {
             roleDots,
             mediaItems,
-            earlyPronouns,
+            sourceAnimation,
             expandableSheet
         }
     }

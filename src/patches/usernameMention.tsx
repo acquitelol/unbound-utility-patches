@@ -2,6 +2,7 @@ import { Chat } from '../common/modules';
 import { get } from '../common/store';
 
 const { metro: { findByProps, findStore } } = window["unbound"];
+const ReactNative = window["ReactNative"];
 
 const MessageStore = findStore("Message");
 const [
@@ -13,6 +14,13 @@ const [
     { bulk: true }
 );
 
+const Handler = new Proxy({ unpatch: null }, {
+    set(target, prop, value, receiver) {
+        Reflect.get(target, prop, receiver)?.();
+        return Reflect.set(target, prop, value, receiver);
+    }
+})
+
 
 export default {
     key: "usernameMention",
@@ -22,8 +30,9 @@ export default {
     
     patch(Patcher) {
         Patcher.after(Chat.prototype, "render", (_, __, res) => {
-            window["ReactNative"].Platform.OS !== "android"
-                && Patcher.instead(res?.props, "onTapUsername", (self, args, orig) => {
+            ReactNative.Platform.OS !== "android"
+                && res?.props?.onTapUsername
+                && (Handler.unpatch = Patcher.instead(res?.props, "onTapUsername", (self, args, orig) => {
                     if (!get(this.key)) return orig.apply(self, args);
 
                     const { messageId } = args[0].nativeEvent;
@@ -37,7 +46,7 @@ export default {
                     
                     const { username, discriminator } = message.author;
                     ChatManager.insertText(`@${username}${Boolean(Number(discriminator)) ? `#${discriminator}` : ""}`)
-                })
+                }))
         });
     }
 };
