@@ -25,12 +25,12 @@ export default {
         const [activeTab, setActiveTab] = React.useState(String(!!get("shouldAnimate", true)));
         const tabs = [
             {
-                id: "true",
-                title: "Animated",
-            },
-            {
                 id: "false",
                 title: "Non-animated",
+            },
+            {
+                id: "true",
+                title: "Animated",
             }
         ]
 
