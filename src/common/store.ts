@@ -10,7 +10,7 @@ const {
     }
 } = window["unbound"];
 
-export const get = (prop: string, defaultValue: Serializable = true) => _get(manifest.name, prop, defaultValue)
+export const get = (prop: string, defaultValue: Serializable = false) => _get(manifest.name, prop, defaultValue)
 export const set = (prop: string, value: Serializable) => _set(manifest.name, prop, value);
 
 export type Section = {
