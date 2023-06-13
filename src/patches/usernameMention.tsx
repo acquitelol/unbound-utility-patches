@@ -1,10 +1,9 @@
-import { Chat } from '../common/modules';
+import { Chat, MessageStore, Platform, metro } from '../common/exports';
 import { get } from '../common/store';
+import { Patch } from '../common/patch';
 
-const { metro: { findByProps, findStore } } = window["unbound"];
-const ReactNative = window["ReactNative"];
+const { findByProps } = metro;
 
-const MessageStore = findStore("Message");
 const [
     ChatManager,
     { getChannelId }
@@ -14,26 +13,25 @@ const [
     { bulk: true }
 );
 
-const Handler = new Proxy({ unpatch: null }, {
-    set(target, prop, value, receiver) {
-        Reflect.get(target, prop, receiver)?.();
-        return Reflect.set(target, prop, value, receiver);
-    }
-})
+export default class extends Patch {
+    static override key = "usernameMention";
+    static override title = "Username Mention";
+    static override subtitle = "Matches behavior where tapping a username in chat mentions the person.";
+    static override icon = "ic_mention_user";
 
-
-export default {
-    key: "usernameMention",
-    title: "Username Mention",
-    subtitle: "Matches behavior on platforms where tapping a username in chat mentions the person.",
-    icon: "ic_mention_user",
+    private static handler = new Proxy({ unpatch: null }, {
+        set(target, prop, value, receiver) {
+            Reflect.get(target, prop, receiver)?.();
+            return Reflect.set(target, prop, value, receiver);
+        }
+    })
     
-    patch(Patcher) {
+    static override patch(Patcher) {
         Patcher.after(Chat.prototype, "render", (_, __, res) => {
-            ReactNative.Platform.OS !== "android"
+            Platform.OS !== "android"
                 && res?.props?.onTapUsername
-                && (Handler.unpatch = Patcher.instead(res?.props, "onTapUsername", (self, args, orig) => {
-                    if (!get(this.key)) return orig.apply(self, args);
+                && (this.handler.unpatch = Patcher.instead(res?.props, "onTapUsername", (self, args, orig) => {
+                    if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
 
                     const { messageId } = args[0].nativeEvent;
         

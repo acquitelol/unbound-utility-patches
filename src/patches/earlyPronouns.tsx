@@ -1,40 +1,36 @@
+import { metro, React } from "../common/exports";
 import { get, set } from "../common/store";
+import { Patch } from "../common/patch";
 
-const { 
-    metro: { 
-        findByProps, 
-        findStore,
-        components: {
-            Forms
-        }
-    } 
-} = window["unbound"];
-const React = window["React"];
+const { findByProps, components: { Forms }, stores: { Users } } = metro;
 
-const UserStore = findStore("User");
 const Profile = findByProps("getUserProfile", { lazy: true });
 
-export default {
-    key: "earlyPronouns",
-    title: "Early Pronouns",
-    subtitle: () => `Set your own pronouns to ${get("pronouns", "")} early. Keep in mind others will not be able to see this.`,
-    icon: "ic_accessibility_24px",
+export default class self extends Patch {
+    static override key = "earlyPronouns";
+    static override title = "Early Pronouns";
 
-    patch(Patcher) {
+    static override get subtitle() {
+        return `Set your pronouns to ${get(`${this.key}.pronouns`, "")} early. Keep in mind others will not be able to see this.`;
+    };
+
+    static override icon = "ic_accessibility_24px";
+
+    static override patch(Patcher) {
         Patcher.after(Profile, "getUserProfile", (_, args, res) => {
-            if (args[0] !== UserStore.getCurrentUser().id || !res
-            || !get(this.key) || !get("pronouns", ""))  return;
+            if (args[0] !== Users.getCurrentUser().id || !res
+            || !get(`${this.key}.enabled`) || !get(`${this.key}.pronouns`, ""))  return;
 
-            res.pronouns ||= get("pronouns", "");
+            res.pronouns ||= get(`${this.key}.pronouns`, "");
         });
-    },
+    };
 
-    render(disabled: boolean) {
+    static override render({ disabled }) {
         return <Forms.FormInput 
             placeholder="Your pronouns go here"
             title="Pronouns"
-            value={get("pronouns", "")}
-            onChange={(value: string) => set("pronouns", value)}
+            value={get(`${self.key}.pronouns`, "")}
+            onChange={(value: string) => set(`${self.key}.pronouns`, value)}
             disabled={disabled}
             style={{ marginTop: -16 }}
         />;

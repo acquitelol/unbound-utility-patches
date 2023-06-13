@@ -1,28 +1,33 @@
 import { get, set } from "../common/store";
-import { BadgableTabBar } from "../common/modules";
+import { BadgableTabBar, React, View, metro } from "../common/exports";
+import { Patch } from "../common/patch";
 
-const React = window["React"];
-const { View } = window["ReactNative"];
-const { metro: { find } } = window["unbound"];
+const { find } = metro;
 
 const { default: ActionSheet } = find(x => x?.default?.render?.name === "ActionSheet");
 
-export default {
-    key: "expandableSheet",
-    title: "Expandable ActionSheets",
-    subtitle: () => `Forces any User-Profile Action Sheets to always initially render as ${get("shouldExpand", false) ? "" : "non-"}expanded.`,
-    icon: () => `ic_chevron_${get("shouldExpand", false) ? "up" : "down" }_24px`,
+export default class self extends Patch {
+    static override key = "expandableSheet";
+    static override title = "Expandable ActionSheets";
 
-    patch(Patcher) {
+    static override get subtitle() {
+        return `Forces any User-Profile Action Sheets to always initially render as ${get(`${this.key}.expand`) ? "" : "non-"}expanded.`;
+    };
+
+    static override get icon() {
+        return `ic_chevron_${get(`${this.key}.expand`, false) ? "up" : "down" }_24px`;   
+    };
+
+    static override patch(Patcher) {
         Patcher.before(ActionSheet, "render", (_, args) => {
-            if (!args[0].startExpanded || !get(this.key)) return;
+            if (!args[0].startExpanded || !get(`${this.key}.enabled`)) return;
 
-            args[0].startExpanded = get("shouldExpand", false);
+            args[0].startExpanded = get(`${this.key}.expand`, false);
         })
-    },
+    };
 
-    render(disabled: boolean) {
-        const [activeTab, setActiveTab] = React.useState(String(!!get("shouldExpand", false)));
+    static override render({ disabled }) {
+        const [activeTab, setActiveTab] = React.useState(String(!!get(`${self.key}.expand`, false)));
         const tabs = [
             {
                 id: "false",
@@ -45,10 +50,10 @@ export default {
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabSelected={(tab: string) => !disabled && (
-                    set("shouldExpand", JSON.parse(tab)), 
+                    set(`${self.key}.expand`, JSON.parse(tab)), 
                     setActiveTab(tab)
                 )}
             />
-        </View>;
+        </View>
     }
 };

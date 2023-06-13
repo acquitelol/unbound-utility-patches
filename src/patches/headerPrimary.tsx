@@ -1,30 +1,24 @@
-import { TextModule } from '../common/modules';
+import { TextModule, metro, utilities } from '../common/exports';
 import { get } from '../common/store';
+import { Patch } from '../common/patch';
 
-const { 
-    metro: { 
-        findByName, 
-        findByProps 
-    },
-    utilities: {
-        findInReactTree
-    } 
-} = window["unbound"];
+const { findByName, findByProps } = metro;
+const { findInReactTree } = utilities;
 
 const { Text } = TextModule;
 const SettingsOverviewScreen = findByName("SettingsOverviewScreen", { interop: false });
 const FormLabel = findByName("FormLabel", { interop: false });
 const { getSettingTitle } = findByProps("getSettingTitle", { lazy: true });
 
-export default {
-    key: "headerPrimary",
-    title: "Fix Text Labels",
-    subtitle: "Forces all Text Labels to use 'text-normal' instead of the default 'header-primary'.",
-    icon: "ic_add_text",
+export default class extends Patch {
+    static override key = "headerPrimary";
+    static override title = "Fix Text Labels";
+    static override subtitle = "Forces all Text Labels to use 'text-normal' instead of the default 'header-primary'.";
+    static override icon = "ic_add_text";
 
-    patch(Patcher) {
+    static override patch(Patcher) {
         Patcher.after(FormLabel, "default", (_, __, res) => {
-            if (!get(this.key)) return;
+            if (!get(`${this.key}.enabled`)) return;
 
             res.props.color === "header-primary" && (res.props.color = "text-normal");
         })
@@ -39,7 +33,7 @@ export default {
                 .map((setting: string) => getSettingTitle(setting));
 
             Patcher.before(Text, "render", (_, args) => {
-                if (!get(this.key)) return;
+                if (!get(`${this.key}.enabled`)) return;
 
                 if (args[0].variant === "text-md/semibold" 
                     && args[0].color === "header-primary"

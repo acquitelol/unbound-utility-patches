@@ -1,30 +1,27 @@
+import { React, View, metro } from "../common/exports";
 import { get, set } from "../common/store";
+import { Patch } from "../common/patch";
 
-const {
-    metro: {
-        findByProps,
-        findStore,
-        common: {
-            Theme: {
-                colors,
-                meta
-            }
-        },
-        components: {
-            Forms: {
-                FormLabel
-            },
-            Slider
-        }
+const { 
+    findByProps, 
+    components: { 
+        Forms, 
+        Slider 
+    }, 
+    common: { 
+        Theme: { 
+            meta, 
+            colors 
+        } 
+    },
+    stores: {
+        Theme
     }
-} = window["unbound"];
-const React = window["React"];
-const { View } = window["ReactNative"];
+} = metro;
 
-const ThemeStore = findStore("Theme");
 const MediaItemManager = findByProps("getNumMediaItemsPerRow");
 const renderLabel = (text: number | string, disabled: boolean) => (
-    <FormLabel 
+    <Forms.FormLabel 
         text={text}
         color={"text-normal"}
         style={{ 
@@ -34,21 +31,25 @@ const renderLabel = (text: number | string, disabled: boolean) => (
     />
 );
 
-export default {
-    key: "mediaItems",
-    title: "Media Items",
-    subtitle: () => `Changes the amount of media items per row in media picker to '${get("mediaItemsNumber", 2)}' instead of the default '3'.`,
-    icon: "ic_image",
+export default class self extends Patch {
+    static override key = "mediaItems";
+    static override title = "Media Items";
 
-    patch(Patcher) {
+    static override get subtitle() {
+        return `Changes the amount of items per row in media picker to '${get(`${this.key}.number`, 2)}' instead of the default '3'.`;
+    };
+
+    static override icon = "ic_image";
+
+    static override patch(Patcher) {
         Patcher.instead(MediaItemManager, "getNumMediaItemsPerRow", (self, args, orig) => {
-            if (!get(this.key)) return orig.apply(self, args);
+            if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
 
-            return get("mediaItemsNumber", 2);
+            return get(`${this.key}.number`, 2);
         });
-    },
+    };
     
-    render(disabled: boolean) {
+    static override render({ disabled }) {
         const minimum = 1;
         const maximum = 8;
 
@@ -60,14 +61,14 @@ export default {
         >
             {renderLabel(minimum, disabled)}
             <Slider
-                value={get("mediaItemsNumber", 2)}
+                value={get(`${self.key}.number`, 2)}
                 minimumValue={minimum}
                 maximumValue={maximum}
                 style={{ flex: 1 }}
-                minimumTrackTintColor={meta.resolveSemanticColor(ThemeStore.theme, colors.HEADER_PRIMARY)}
-                maximumTrackTintColor={meta.resolveSemanticColor(ThemeStore.theme, colors.BACKGROUND_PRIMARY)}
+                minimumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)}
+                maximumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.BACKGROUND_PRIMARY)}
                 step={1}
-                onValueChange={(value: number) => set("mediaItemsNumber", value)}
+                onValueChange={(value: number) => set(`${self.key}.number`, value)}
                 disabled={disabled}
                 tapToSeek
             />

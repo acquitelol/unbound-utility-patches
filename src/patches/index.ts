@@ -1,5 +1,3 @@
-import { Section } from '../common/store';
-
 import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
@@ -9,13 +7,15 @@ import bypassNsfwGate from './bypassNsfwGate';
 import earlyPronouns from "./earlyPronouns";
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
+import silentTyping from './silentTyping';
+import codeBlocks from './codeBlocks';
 
 import roleDots from "./roleDots";
 import mediaItems from "./mediaItems";
 import sourceAnimation from './sourceAnimation';
 import expandableSheet from "./expandableSheet";
 
-export const sections: Record<string, Section> = {
+export const sections = {
     recommended: {
         icon: "img_nitro_star",
         patches: {
@@ -31,7 +31,9 @@ export const sections: Record<string, Section> = {
         patches: {
             earlyPronouns,
             doubleTap,
-            usernameMention
+            usernameMention,
+            silentTyping,
+            codeBlocks
         }
     },
     preferences: {

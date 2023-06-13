@@ -1,18 +1,20 @@
+import { metro } from '../common/exports';
 import { get } from '../common/store';
+import { Patch } from '../common/patch';
 
-const { metro: { findByProps } } = window["unbound"];
+const { findByProps } = metro;
 
 const MediaManager = findByProps("downloadMediaAsset", { lazy: true });
 
-export default {
-    key: "tenorFix",
-    title: "Save Tenor GIFs",
-    subtitle: "Fixes a long-lasting bug of Discord where Tenor GIFs saved as MP4s instead of GIFs.",
-    icon: "ic_download_24px",
+export default class extends Patch {
+    static override key = "tenorFix";
+    static override title = "Save Tenor GIFs";
+    static override subtitle = "Fixes a long-lasting bug of Discord where Tenor GIFs saved as MP4s instead of GIFs.";
+    static override icon = "ic_download_24px";
     
-    patch(Patcher) {
+    static override patch(Patcher) {
         Patcher.before(MediaManager, "downloadMediaAsset", (_, args) => {
-            if (!get(this.key)) return;
+            if (!get(`${this.key}.enabled`)) return;
 
             const [uri]: [string] = args;
             const prefix = ".tenor.com";
@@ -24,7 +26,7 @@ export default {
 
             if (startIndex === -1) return;
             
-            let [, hostname, tenorID, fileName] = path.slice(startIndex, startIndex + 3);
+            let [hostname, tenorID, fileName] = path.slice(startIndex, startIndex + 3);
 
             tenorID = `${tenorID.slice(0, -2)}AC`
             fileName = fileName.replace(".mp4", ".gif");
