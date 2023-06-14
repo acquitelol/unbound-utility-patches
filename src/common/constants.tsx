@@ -78,7 +78,7 @@ export const buttons = [
 
 export const ToggleableSection = ({ title, icon, patches, children, style, ...rest }: any) => {
     const [hidden, setHidden] = React.useState(get(`${title}.hidden`, false));
-    const disabled = Object.keys(patches).every(key => !get(key));
+    const disabled = Object.keys(patches).every(key => !get(`${key}.enabled`));
     const settings = useSettingsStore(manifest.name);
 
     React.useEffect(() => {
@@ -92,9 +92,7 @@ export const ToggleableSection = ({ title, icon, patches, children, style, ...re
             {icon}
             <TouchableOpacity
                 onPress={() => {
-                    Object.values(patches as Section["patches"])
-                        .forEach(value => settings.set(`${value.key}.enabled`, disabled));
-
+                    Object.keys(patches).forEach(key => settings.set(`${key}.enabled`, disabled));
                     configureNext(create(300, "keyboard"));
                 }}
             >

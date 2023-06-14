@@ -53,7 +53,7 @@ export default () => {
                             size={ButtonSizes.MEDIUM}
                             onPress={() => {
                                 setAll(settings, sections, value);
-                                configureNext(create(100, "keyboard"))
+                                configureNext(create(300, "keyboard"))
                             }}
                             style={{ 
                                 marginTop: 16,
