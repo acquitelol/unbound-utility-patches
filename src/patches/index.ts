@@ -4,7 +4,6 @@ import tenorFix from './tenorFix';
 import omitDisconnect from './omitDisconnect';
 import bypassNsfwGate from './bypassNsfwGate';
 
-import earlyPronouns from "./earlyPronouns";
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
 import silentTyping from './silentTyping';
@@ -29,7 +28,6 @@ export const sections = {
     utilities: {
         icon: "debug",
         patches: {
-            earlyPronouns,
             doubleTap,
             usernameMention,
             silentTyping,
@@ -49,12 +47,11 @@ export const sections = {
 
 export const patchAll = (Patcher) => Object.values(sections)
     .forEach(section => {
-        Object.values(section.patches)
-            .forEach(value => {
-                try {
-                    value.patch(Patcher);
-                } catch (e) {
-                    console.error(`Patch '${value.title}' (${value.key}) errored with '${e.message ?? e}'.`);
-                };
-            });
+        Object.values(section.patches).forEach(value => {
+            try {
+                value.patch(Patcher);
+            } catch (e) {
+                console.error(`Patch '${value.title}' (${value.key}) errored with '${e.message ?? e}'.`);
+            };
+        });
     });

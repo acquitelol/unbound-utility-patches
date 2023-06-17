@@ -1,9 +1,7 @@
 import manifest from '../dist/manifest.json';
 import Settings from './common/settings';
 import { patchAll } from './patches';
-
-const React = window["React"];
-const { patcher: { createPatcher } } = window["unbound"];
+import { React, createPatcher } from './common/exports';
 
 const Patcher = createPatcher(manifest.name);
 

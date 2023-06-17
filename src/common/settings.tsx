@@ -100,7 +100,7 @@ export default () => {
                                     value={get(`${key}.enabled`)}
                                     onValueChange={(value) => {
                                         settings.set(`${key}.enabled`, JSON.parse(value))
-                                        configureNext(create(100, "keyboard"))
+                                        configureNext(create(300, "keyboard"))
                                     }}
                                 />}
                                 disabled={!get(`${key}.enabled`)}

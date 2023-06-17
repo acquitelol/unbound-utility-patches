@@ -8,6 +8,9 @@ export const {
         useSettingsStore,
         get: _get,
         set: _set
+    },
+    patcher: {
+        createPatcher
     }
 } = window["unbound"];
 
