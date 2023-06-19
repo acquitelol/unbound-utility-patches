@@ -1,6 +1,7 @@
 import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
+import gifPaste from "./gifPaste";
 import omitDisconnect from './omitDisconnect';
 import bypassNsfwGate from './bypassNsfwGate';
 
@@ -21,6 +22,7 @@ export const sections = {
             headerPrimary,
             jsonFix,
             tenorFix,
+            gifPaste,
             omitDisconnect,
             bypassNsfwGate
         }

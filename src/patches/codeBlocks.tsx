@@ -36,7 +36,7 @@ export default class self extends Patch {
             default: unsafe_rawColors.WHITE_100,
             embed: meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)
         },
-        "git-hub": {
+        git_hub: {
             title: "#d2a8ff",
             attr: "#79c0ff",
             attribute: "#79c0ff",
@@ -76,7 +76,7 @@ export default class self extends Patch {
             default: "#66d9ef",
             embed: "#c0eb6b"
         },
-        "x-code": {
+        x_code: {
             title: "#b58de2",
             attr: "#d4bc73",
             attribute: "#e677d3",
@@ -113,7 +113,6 @@ export default class self extends Patch {
             if (item.type === "codeBlock") {
                 embeds.push({
                     type: "rich",
-                    spoiler: "",
                     title: [
                         {
                             type: "text",
@@ -155,7 +154,6 @@ export default class self extends Patch {
                         }
                     ],
                     description: this.highlight(item.content, item.lang),
-                    fields: [],
                     borderLeftColor: processColor(this.colors.embed),
                     providerColor: processColor(this.colors[getRandomString(Object.keys(this.colors))] ?? this.colors.default),
                     headerTextColor: processColor(this.colors.name),
@@ -254,12 +252,9 @@ export default class self extends Patch {
         const tabs = Object.keys(self.styles).map(style => ({
             id: style,
             title: style
-                .split("-")
-                .map(word => utilities.capitalize(word))
-                .join("")
                 .split("_")
                 .map(word => utilities.capitalize(word))
-                .join(" ")
+                .join("")
         }))
 
         return <View 

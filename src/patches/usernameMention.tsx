@@ -1,17 +1,6 @@
-import { Chat, MessageStore, Platform, metro } from '../common/exports';
+import { Chat, ChatManager, MessageStore, Platform, getChannelId } from '../common/exports';
 import { get } from '../common/store';
 import { Patch } from '../common/patch';
-
-const { findByProps } = metro;
-
-const [
-    ChatManager,
-    { getChannelId }
-] = findByProps(
-    { params: ["insertText"], lazy: true },
-    { params: ["getLastSelectedChannelId"], lazy: true },
-    { bulk: true }
-);
 
 export default class extends Patch {
     static override key = "usernameMention";

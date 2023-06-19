@@ -1,5 +1,5 @@
 import { React, TouchableOpacity, View, configureNext, create, getIDByName, metro, useSettingsStore, utilities } from "./exports";
-import { Section, get } from "./store";
+import { get } from "./store";
 import manifest from '../../dist/manifest.json';
 
 const {

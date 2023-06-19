@@ -19,6 +19,16 @@ export const TextModule = metro.findByProps("TextStyleSheet", "Text", { lazy: tr
 export const { GenericHeaderTitle, GenericSubHeaderTitle } = metro.findByProps("GenericHeaderTitle", { lazy: true });
 export const Chat = metro.findByName("Chat");
 export const MessageStore = metro.findStore("Message");
+export const [
+    ChatManager,
+    { getChannelId }
+] = metro.findByProps(
+    { params: ["insertText"], lazy: true },
+    { params: ["getLastSelectedChannelId"], lazy: true },
+    { bulk: true }
+);
+
+
 export const { 
     NativeModules, 
     ScrollView, 
