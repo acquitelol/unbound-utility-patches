@@ -5,7 +5,7 @@ import { Patch } from '../common/patch';
 export default class extends Patch {
     static override key = "gifPaste";
     static override title = "Gif Paste";
-    static override subtitle = "Inserts a GIF link into the Chat instead of instantly sending it.";
+    static override subtitle = "Inserts any selected GIF link into the Chat Input first instead of instantly sending it.";
     static override icon = "ic_share_ios";
 
     static override patch(Patcher) {
