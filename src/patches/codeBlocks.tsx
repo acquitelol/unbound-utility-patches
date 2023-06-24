@@ -210,13 +210,18 @@ export default class self extends Patch {
                     content: item.text
                 }],
                 target: 'usernameOnClick',
+                messageFont: "SourceCodePro-Semibold",
+                font: "SourceCodePro-Semibold",
                 context: {
                     username: 1,
                     usernameOnClick: {
                         font: "SourceCodePro-Semibold",
+                        messageFont: "SourceCodePro-Semibold",
                         linkColor: processColor(this.colors[item.color ?? "default"]),
                     },
-                    medium: true
+                    medium: true,
+                    font: "SourceCodePro-Semibold",
+                    messageFont: "SourceCodePro-Semibold"
                 },
             }
         });
