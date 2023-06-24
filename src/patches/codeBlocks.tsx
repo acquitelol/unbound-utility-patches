@@ -213,6 +213,7 @@ export default class self extends Patch {
                 context: {
                     username: 1,
                     usernameOnClick: {
+                        font: "SourceCodePro-Semibold",
                         linkColor: processColor(this.colors[item.color ?? "default"]),
                     },
                     medium: true
