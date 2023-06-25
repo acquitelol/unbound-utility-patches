@@ -23,8 +23,6 @@ export const sections = {
             jsonFix,
             tenorFix,
             gifPaste,
-            omitDisconnect,
-            bypassNsfwGate
         }
     },
     utilities: {
@@ -32,8 +30,15 @@ export const sections = {
         patches: {
             doubleTap,
             usernameMention,
-            silentTyping,
             codeBlocks
+        }
+    },
+    omittable: {
+        icon: "settings",
+        patches: {
+            omitDisconnect,
+            bypassNsfwGate,
+            silentTyping
         }
     },
     preferences: {

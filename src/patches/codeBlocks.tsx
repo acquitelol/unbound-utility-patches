@@ -76,7 +76,7 @@ export default class self extends Patch {
             default: "#66d9ef",
             embed: "#c0eb6b"
         },
-        x_code: {
+        xcode: {
             title: "#b58de2",
             attr: "#d4bc73",
             attribute: "#e677d3",
@@ -210,18 +210,12 @@ export default class self extends Patch {
                     content: item.text
                 }],
                 target: 'usernameOnClick',
-                messageFont: "SourceCodePro-Semibold",
-                font: "SourceCodePro-Semibold",
                 context: {
                     username: 1,
                     usernameOnClick: {
-                        font: "SourceCodePro-Semibold",
-                        messageFont: "SourceCodePro-Semibold",
-                        linkColor: processColor(this.colors[item.color ?? "default"]),
+                        linkColor: processColor(this.colors[item.color ?? "default"])
                     },
-                    medium: true,
-                    font: "SourceCodePro-Semibold",
-                    messageFont: "SourceCodePro-Semibold"
+                    medium: true
                 },
             }
         });
