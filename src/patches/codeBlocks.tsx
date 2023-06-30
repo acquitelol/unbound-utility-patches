@@ -230,16 +230,12 @@ export default class self extends Patch {
             const rows = JSON.parse(args[1]);
 
             for (const row of rows) {
-                try {
-                    if (row?.message?.content) {
-                        if (!row?.message?.embeds) row.message.embeds = [];
-                        const { content, embeds } = this.parse(row?.message?.content);
+                if (row?.message?.content) {
+                    if (!row?.message?.embeds) row.message.embeds = [];
+                    const { content, embeds } = this.parse(row?.message?.content);
 
-                        row.message.embeds.push(...embeds);
-                        row.message.content = content;
-                    }
-                } catch(e) {
-                    console.error(e)
+                    row.message.embeds.push(...embeds);
+                    row.message.content = content;
                 }
             }
 

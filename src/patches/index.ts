@@ -2,18 +2,21 @@ import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
 import gifPaste from "./gifPaste";
-import omitDisconnect from './omitDisconnect';
-import bypassNsfwGate from './bypassNsfwGate';
+import resolveProtocols from "./resolveProtocols";
 
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
-import silentTyping from './silentTyping';
 import codeBlocks from './codeBlocks';
+
+import silentTyping from './silentTyping';
+import omitDisconnect from './omitDisconnect';
+import bypassNsfwGate from './bypassNsfwGate';
 
 import roleDots from "./roleDots";
 import mediaItems from "./mediaItems";
 import sourceAnimation from './sourceAnimation';
 import expandableSheet from "./expandableSheet";
+import removeCall from "./removeCall";
 
 export const sections = {
     recommended: {
@@ -23,6 +26,7 @@ export const sections = {
             jsonFix,
             tenorFix,
             gifPaste,
+            resolveProtocols
         }
     },
     utilities: {
@@ -36,9 +40,9 @@ export const sections = {
     omittable: {
         icon: "settings",
         patches: {
+            silentTyping,
             omitDisconnect,
-            bypassNsfwGate,
-            silentTyping
+            bypassNsfwGate
         }
     },
     preferences: {
@@ -47,7 +51,8 @@ export const sections = {
             roleDots,
             mediaItems,
             sourceAnimation,
-            expandableSheet
+            expandableSheet,
+            removeCall
         }
     }
 };

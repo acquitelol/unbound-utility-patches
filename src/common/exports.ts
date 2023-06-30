@@ -28,7 +28,6 @@ export const [
     { bulk: true }
 );
 
-
 export const { 
     NativeModules, 
     ScrollView, 
