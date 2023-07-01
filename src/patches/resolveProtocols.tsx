@@ -11,16 +11,17 @@ export default class extends Patch {
     static override icon = "icon-qs-links";
 
     private static resolveProtocols(content) {
-        return content.map((item) => {
+        return content.map(item => {
             typeof item.content === "object" 
                 && (item.content = this.resolveProtocols(item.content))
 
-            if (typeof item?.content === "string" 
+            if (typeof item?.content === "string"
+                && !["codeBlock", "inlineCode"].includes(item?.type)
                 && item?.content?.match(/[a-zA-Z]+\:\/\//g) 
-            ) { 
-                item.type = "link"
-                item.target = item.content
-                item.content = [{ type: "text", content: item.content }]
+            ) return {
+                type: "link",
+                target: item.content,
+                content: [{ type: "text", content: item.content }]
             }
 
             return item;
