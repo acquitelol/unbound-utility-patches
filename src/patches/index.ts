@@ -1,16 +1,18 @@
 import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
-import gifPaste from "./gifPaste";
 import resolveProtocols from "./resolveProtocols";
+import fixConnection from "./fixConnection";
 
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
 import codeBlocks from './codeBlocks';
+import enableRemix from "./enableRemix";
 
 import silentTyping from './silentTyping';
 import omitDisconnect from './omitDisconnect';
 import bypassNsfwGate from './bypassNsfwGate';
+import gifPaste from "./gifPaste";
 
 import roleDots from "./roleDots";
 import mediaItems from "./mediaItems";
@@ -25,8 +27,8 @@ export const sections = {
             headerPrimary,
             jsonFix,
             tenorFix,
-            gifPaste,
-            resolveProtocols
+            resolveProtocols,
+            fixConnection
         }
     },
     utilities: {
@@ -34,7 +36,8 @@ export const sections = {
         patches: {
             doubleTap,
             usernameMention,
-            codeBlocks
+            codeBlocks,
+            enableRemix
         }
     },
     omittable: {
@@ -42,7 +45,8 @@ export const sections = {
         patches: {
             silentTyping,
             omitDisconnect,
-            bypassNsfwGate
+            bypassNsfwGate,
+            gifPaste
         }
     },
     preferences: {
