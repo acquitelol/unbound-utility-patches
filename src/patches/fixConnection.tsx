@@ -3,6 +3,8 @@ import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { common: { Dispatcher } } = metro;
+const AuthenticationUtilities = metro.findByProps("startSession", { lazy: true });
+const AuthenticationStore = metro.findStore("Authentication");
 
 export default class extends Patch {
     static override key = "fixConnection";
@@ -11,13 +13,17 @@ export default class extends Patch {
     static override icon = "history";
 
     static override patch(Patcher) {
-        Patcher.after(Dispatcher, "dispatch", (_, args) => {
-            if (!get(`${this.key}.enabled`) || args[0].type !== "LOAD_MESSAGES_SUCCESS") return;
-
-            Dispatcher.dispatch({
-                type: "APP_STATE_UPDATE",
-                state: "active"
-            })
-        });
+        Patcher.after(AuthenticationUtilities, "startSession", () => {
+            if (!get(`${this.key}.enabled`)) return;
+            
+            setTimeout(() => {
+                if (!AuthenticationStore.getSessionId()) {
+                    Dispatcher.dispatch({
+                        type: 'APP_STATE_UPDATE', 
+                        state: 'active'
+                    })
+                }
+            }, 300)
+        }, true);
     }
 };

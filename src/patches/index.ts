@@ -1,7 +1,6 @@
 import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
-import resolveProtocols from "./resolveProtocols";
 import fixConnection from "./fixConnection";
 
 import doubleTap from './doubleTap';
@@ -27,7 +26,6 @@ export const sections = {
             headerPrimary,
             jsonFix,
             tenorFix,
-            resolveProtocols,
             fixConnection
         }
     },

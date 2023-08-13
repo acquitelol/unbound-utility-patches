@@ -17,15 +17,18 @@ import { ToggleableSection, buttons, styles } from "./constants";
 import manifest from '../../dist/manifest.json';
 
 const {
-    findByProps,
     findByName,
     components: {
-        Forms
+        Forms,
+        Redesign: {
+            TableSwitchRow,
+            TableRowIcon
+        },
+        Button
     }
 } = metro;
 
 const SettingSearchBar = findByName("SettingSearchBar");
-const { default: Button, ButtonColors, ButtonSizes } = findByProps("ButtonColors", "ButtonLooks", "ButtonSizes", { lazy: true });
 
 export default () => {
     const settings = useSettingsStore(manifest.name);
@@ -48,9 +51,9 @@ export default () => {
                 <View style={{ flexDirection: "row" }}>
                     {buttons.map(({ title, value }, _, { length }) => {
                         return <Button
-                            color={ButtonColors.BRAND}
+                            color={Button.Colors.BRAND}
                             text={title}
-                            size={ButtonSizes.MEDIUM}
+                            size={Button.Sizes.MEDIUM}
                             onPress={() => {
                                 setAll(settings, sections, value);
                                 configureNext(create(300, "keyboard"))
@@ -59,7 +62,7 @@ export default () => {
                                 marginTop: 16,
                                 borderRadius: 12,
                                 marginHorizontal: 4,
-                                flex: 1/length
+                                flex: 1 / length
                             }}
                         />
                     })}
@@ -67,8 +70,8 @@ export default () => {
             </View>
         </View>
         <View style={styles.section}>
-            {Object.entries(sections).map(([title, { icon, patches }]) => {
-                return <ToggleableSection
+            {Object.entries(sections).map(([title, { icon, patches }]) => (
+                <ToggleableSection
                     key={title}
                     title={utilities.capitalize(title)}
                     icon={<Forms.FormRow.Icon style={styles.sectionIcon} source={getIDByName(icon)} />}
@@ -81,36 +84,24 @@ export default () => {
                         return [title, subtitle]
                             .some(x => x.toLowerCase()
                             .includes(query.toLowerCase()))
-                    }).map(({ key, title, subtitle, icon, render: Render }, index, array) => {
-                        return <>
-                            <Forms.FormRow 
-                                key={key}
-                                label={title}
-                                subLabel={subtitle}
-                                leading={<View style={styles.circle}>
-                                    <Forms.FormRow.Icon 
-                                        style={{
-                                            width: get(`${key}.enabled`) ? 20 : 16,
-                                            height: get(`${key}.enabled`) ? 20 : 16,
-                                        }}
-                                        source={getIDByName(icon)} 
-                                    />
-                                </View>}
-                                trailing={() => <Forms.FormSwitch
-                                    value={get(`${key}.enabled`)}
-                                    onValueChange={(value) => {
-                                        settings.set(`${key}.enabled`, JSON.parse(value))
-                                        configureNext(create(300, "keyboard"))
-                                    }}
-                                />}
-                                disabled={!get(`${key}.enabled`)}
-                            />
-                            {Render ? <Render disabled={!get(`${key}.enabled`)} /> : <></>}
-                            {index < (array.length - 1) && <Forms.FormDivider />}
-                        </>
-                    })}
+                    }).map(({ key, title, subtitle, icon, render: Render }, index, array) => (<>
+                        <TableSwitchRow 
+                            label={title}
+                            subLabel={subtitle}
+                            icon={<TableRowIcon source={getIDByName(icon)} />}
+                            value={get(`${key}.enabled`)}
+                            onValueChange={(value) => {
+                                settings.set(`${key}.enabled`, JSON.parse(value))
+                                configureNext(create(300, "keyboard"))
+                            }}
+                            disabled={!get(`${key}.enabled`)}
+                            start={index === 0}
+                            end={index === array.length - 1}
+                        />
+                        {Render && <Render disabled={!get(`${key}.enabled`)} />}
+                    </>))}
                 </ToggleableSection>
-            })}
+            ))}
         </View>
         <View style={styles.space} />
     </ScrollView>
