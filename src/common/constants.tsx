@@ -57,15 +57,6 @@ export const styles = StyleSheet.createThemedStyleSheet({
         marginHorizontal: 4
     },
 
-    circle: {
-        width: 32,
-        height: 32,
-        borderRadius: 100,
-        backgroundColor: Theme.colors.BACKGROUND_SECONDARY,
-        justifyContent: "center",
-        alignItems: "center"
-    },
-
     renderable: {
         backgroundColor: Theme.colors.BACKGROUND_PRIMARY
     },

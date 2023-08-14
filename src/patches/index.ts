@@ -2,6 +2,7 @@ import headerPrimary from "./headerPrimary";
 import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
 import fixConnection from "./fixConnection";
+import safeBanner from "./safeBanner";
 
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
@@ -26,7 +27,8 @@ export const sections = {
             headerPrimary,
             jsonFix,
             tenorFix,
-            fixConnection
+            fixConnection,
+            safeBanner
         }
     },
     utilities: {

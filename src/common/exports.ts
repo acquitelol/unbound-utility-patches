@@ -29,7 +29,7 @@ export const [
 
 export const { 
     NativeModules, 
-    ScrollView, 
+    ScrollView,
     TouchableOpacity, 
     View, 
     Platform, 
