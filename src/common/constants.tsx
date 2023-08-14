@@ -19,6 +19,7 @@ export const styles = StyleSheet.createThemedStyleSheet({
         marginBottom: -20,
         backgroundColor: Theme.unsafe_rawColors.PRIMARY_800
     },
+
     shadow: {
         shadowColor: "#000",
         shadowOffset: {
@@ -29,6 +30,7 @@ export const styles = StyleSheet.createThemedStyleSheet({
         shadowRadius: 4.65,
         elevation: 8
     },
+
     titles: {
         display: "flex",
         alignItems: "center",
@@ -36,6 +38,7 @@ export const styles = StyleSheet.createThemedStyleSheet({
         marginTop: 24,
         marginBottom: 16
     },
+
     section: {
         marginHorizontal: 16,
         shadowColor: "#000",
@@ -47,14 +50,13 @@ export const styles = StyleSheet.createThemedStyleSheet({
         shadowRadius: 4.65,
         elevation: 8
     },
+
     sectionIcon: {
         width: 16,
         height: 16,
         marginHorizontal: 4
     },
-    space: {
-        marginBottom: 50
-    },
+
     circle: {
         width: 32,
         height: 32,
@@ -62,7 +64,15 @@ export const styles = StyleSheet.createThemedStyleSheet({
         backgroundColor: Theme.colors.BACKGROUND_SECONDARY,
         justifyContent: "center",
         alignItems: "center"
-    }
+    },
+
+    renderable: {
+        backgroundColor: Theme.colors.BACKGROUND_PRIMARY
+    },
+
+    space: {
+        marginBottom: 50
+    },
 });
 
 export const buttons = [

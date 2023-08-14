@@ -98,7 +98,10 @@ export default () => {
                             start={index === 0}
                             end={index === array.length - 1}
                         />
-                        {Render && <Render disabled={!get(`${key}.enabled`)} />}
+                        
+                        {Render && <View style={styles.renderable}>
+                            <Render disabled={!get(`${key}.enabled`)} />
+                        </View>}
                     </>))}
                 </ToggleableSection>
             ))}
