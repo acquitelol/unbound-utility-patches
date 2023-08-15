@@ -12,7 +12,7 @@ export default class extends Patch {
         Patcher.before(View, "render", (_, args) => {
             if (!get(`${this.key}.enabled`) || args[0]?.nativeID !== "you-screen-native-id") return;
 
-            args[0].style = [args[0].style, { marginTop: 40 }]
+            args[0].style = [args[0].style, { marginTop: 48 }]
         });
     }
 };

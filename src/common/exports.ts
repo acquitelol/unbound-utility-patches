@@ -1,6 +1,7 @@
 export const {
     utilities,
     metro,
+    components,
     assets: {
         getIDByName
     },

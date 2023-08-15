@@ -11,13 +11,13 @@ import {
     getIDByName,
     metro,
     useSettingsStore,
-    utilities
+    utilities,
+    components
 } from "./exports";
 import { ToggleableSection, buttons, styles } from "./constants";
 import manifest from '../../dist/manifest.json';
 
 const {
-    findByName,
     components: {
         Forms,
         Redesign: {
@@ -28,11 +28,12 @@ const {
     }
 } = metro;
 
-const SettingSearchBar = findByName("SettingSearchBar");
+const { AdvancedSearch } = components;
+const searchContext = { type: "UTILITY_PATCHES" };
 
 export default () => {
     const settings = useSettingsStore(manifest.name);
-    const [query, setQuery] = React.useState("");
+    const [query, controls] = AdvancedSearch.useAdvancedSearch(searchContext);
 
     return <ScrollView>
         <View style={styles.titles}>
@@ -41,10 +42,9 @@ export default () => {
         </View>
         <View style={styles.navigation}>
             <View style={styles.shadow}>
-                <SettingSearchBar
-                    text={query}
-                    onChangeText={(text: string) => setQuery(text)}
-                    clearText={() => setQuery("")}
+                <AdvancedSearch 
+                    searchContext={searchContext}
+                    controls={controls}
                 />
             </View>
             <View style={styles.shadow}>
@@ -82,8 +82,7 @@ export default () => {
                 >
                     {Object.values(patches).filter(({ title, subtitle }) => {
                         return [title, subtitle]
-                            .some(x => x.toLowerCase()
-                            .includes(query.toLowerCase()))
+                            .some(x => x.toLowerCase().includes(query.toLowerCase()))
                     }).map(({ key, title, subtitle, icon, render: Render }, index, array) => (<>
                         <TableSwitchRow 
                             label={title}
@@ -98,7 +97,7 @@ export default () => {
                             start={index === 0}
                             end={index === array.length - 1}
                         />
-                        
+
                         {Render && <View style={styles.renderable}>
                             <Render disabled={!get(`${key}.enabled`)} />
                         </View>}
