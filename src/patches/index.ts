@@ -1,5 +1,4 @@
 import headerPrimary from "./headerPrimary";
-import jsonFix from "./jsonFix";
 import tenorFix from './tenorFix';
 import fixConnection from "./fixConnection";
 import safeBanner from "./safeBanner";
@@ -7,7 +6,7 @@ import safeBanner from "./safeBanner";
 import doubleTap from './doubleTap';
 import usernameMention from './usernameMention';
 import codeBlocks from './codeBlocks';
-import enableRemix from "./enableRemix";
+import removeCall from "./removeCall";
 
 import silentTyping from './silentTyping';
 import omitDisconnect from './omitDisconnect';
@@ -18,14 +17,12 @@ import roleDots from "./roleDots";
 import mediaItems from "./mediaItems";
 import sourceAnimation from './sourceAnimation';
 import expandableSheet from "./expandableSheet";
-import removeCall from "./removeCall";
 
 export const sections = {
     recommended: {
         icon: "img_nitro_star",
         patches: {
             headerPrimary,
-            jsonFix,
             tenorFix,
             fixConnection,
             safeBanner
@@ -37,7 +34,7 @@ export const sections = {
             doubleTap,
             usernameMention,
             codeBlocks,
-            enableRemix
+            removeCall
         }
     },
     omittable: {
@@ -55,8 +52,7 @@ export const sections = {
             roleDots,
             mediaItems,
             sourceAnimation,
-            expandableSheet,
-            removeCall
+            expandableSheet
         }
     }
 };
