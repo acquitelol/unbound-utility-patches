@@ -32,7 +32,7 @@ export default class extends Patch {
                     if (!message) return;
                     
                     const { username, discriminator } = message.author;
-                    ChatManager.insertText(`@${username}${Boolean(Number(discriminator)) ? `#${discriminator}` : ""}`)
+                    ChatManager.insertText(getChannelId(), `@${username}${Boolean(Number(discriminator)) ? `#${discriminator}` : ""}`)
                 }))
         });
     }

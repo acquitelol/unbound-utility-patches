@@ -12,7 +12,7 @@ export default class extends Patch {
         Patcher.instead(ChatManager, "selectGIF", (self, args, orig) => {
             if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
 
-            ChatManager.insertText(args[0]?.url ?? "");
+            ChatManager.insertText(args[0], args[1]?.url ?? "");
         });
     }
 };

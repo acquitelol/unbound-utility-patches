@@ -58,7 +58,7 @@ export const styles = StyleSheet.createThemedStyleSheet({
     },
 
     renderable: {
-        backgroundColor: Theme.colors.BACKGROUND_PRIMARY
+        backgroundColor: Theme.colors.CARD_PRIMARY_BG ?? Theme.colors.BACKGROUND_PRIMARY
     },
 
     space: {
