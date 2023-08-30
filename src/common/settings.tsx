@@ -83,25 +83,26 @@ export default () => {
                     {Object.values(patches).filter(({ title, subtitle }) => {
                         return [title, subtitle]
                             .some(x => x.toLowerCase().includes(query.toLowerCase()))
-                    }).map(({ key, title, subtitle, icon, render: Render }, index, array) => (<>
-                        <TableSwitchRow 
-                            label={title}
-                            subLabel={subtitle}
-                            icon={<TableRowIcon source={getIDByName(icon)} />}
-                            value={get(`${key}.enabled`)}
-                            onValueChange={(value) => {
-                                settings.set(`${key}.enabled`, JSON.parse(value))
-                                configureNext(create(300, "keyboard"))
-                            }}
-                            disabled={!get(`${key}.enabled`)}
-                            start={index === 0}
-                            end={index === array.length - 1}
-                        />
+                    }).map(({ key, title, subtitle, icon, render: Render }, index, array) => (
+                        <View style={get(`${key}.enabled`) ? {} : { opacity: 0.5 }}>
+                            <TableSwitchRow 
+                                label={title}
+                                subLabel={subtitle}
+                                icon={<TableRowIcon source={getIDByName(icon)} />}
+                                value={get(`${key}.enabled`)}
+                                onValueChange={(value) => {
+                                    settings.set(`${key}.enabled`, JSON.parse(value))
+                                    configureNext(create(300, "keyboard"))
+                                }}
+                                start={index === 0}
+                                end={index === array.length - 1}
+                            />
 
-                        {Render && <View style={styles.renderable}>
-                            <Render disabled={!get(`${key}.enabled`)} />
-                        </View>}
-                    </>))}
+                            {Render && <View style={styles.renderable}>
+                                <Render disabled={!get(`${key}.enabled`)} />
+                            </View>}
+                        </View>
+                    ))}
                 </ToggleableSection>
             ))}
         </View>
