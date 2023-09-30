@@ -1,26 +1,25 @@
-import headerPrimary from "./headerPrimary";
+import headerPrimary from './headerPrimary';
 import tenorFix from './tenorFix';
-import fixConnection from "./fixConnection";
-import safeBanner from "./safeBanner";
+import fixConnection from './fixConnection';
+import safeBanner from './safeBanner';
 
-import doubleTap from './doubleTap';
-import usernameMention from './usernameMention';
+import chatGestures from './chatGestures';
 import codeBlocks from './codeBlocks';
-import removeCall from "./removeCall";
+import removeCall from './removeCall';
 
 import silentTyping from './silentTyping';
 import omitDisconnect from './omitDisconnect';
 import bypassNsfwGate from './bypassNsfwGate';
-import gifPaste from "./gifPaste";
+import gifPaste from './gifPaste';
 
-import roleDots from "./roleDots";
-import mediaItems from "./mediaItems";
+import roleDots from './roleDots';
+import mediaItems from './mediaItems';
 import sourceAnimation from './sourceAnimation';
-import expandableSheet from "./expandableSheet";
+import expandableSheet from './expandableSheet';
 
 export const sections = {
     recommended: {
-        icon: "img_nitro_star",
+        icon: 'img_nitro_star',
         patches: {
             headerPrimary,
             tenorFix,
@@ -29,16 +28,15 @@ export const sections = {
         }
     },
     utilities: {
-        icon: "debug",
+        icon: 'debug',
         patches: {
-            doubleTap,
-            usernameMention,
+            chatGestures,
             codeBlocks,
             removeCall
         }
     },
     omittable: {
-        icon: "settings",
+        icon: 'settings',
         patches: {
             silentTyping,
             omitDisconnect,
@@ -47,7 +45,7 @@ export const sections = {
         }
     },
     preferences: {
-        icon: "ic_pencil_24px",
+        icon: 'ic_pencil_24px',
         patches: {
             roleDots,
             mediaItems,

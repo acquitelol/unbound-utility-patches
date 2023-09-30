@@ -1,6 +1,6 @@
-import { React, View, metro } from "../common/exports";
-import { get, set } from "../common/store";
-import { Patch } from "../common/patch";
+import { React, View, metro } from '../common/exports';
+import { get, set } from '../common/store';
+import { Patch } from '../common/patch';
 
 const { 
     findByProps, 
@@ -19,11 +19,11 @@ const {
     }
 } = metro;
 
-const MediaItemManager = findByProps("getNumMediaItemsPerRow");
+const MediaItemManager = findByProps('getNumMediaItemsPerRow');
 const renderLabel = (text: number | string, disabled: boolean) => (
     <Forms.FormLabel 
         text={text}
-        color={"text-normal"}
+        color={'text-normal'}
         style={{ 
             marginHorizontal: 24,
             opacity: disabled ? 0.5 : 1
@@ -32,17 +32,17 @@ const renderLabel = (text: number | string, disabled: boolean) => (
 );
 
 export default class self extends Patch {
-    static override key = "mediaItems";
-    static override title = "Media Items";
+    static override key = 'mediaItems';
+    static override title = 'Media Items';
 
     static override get subtitle() {
         return `Changes the amount of items per row in media picker to '${get(`${this.key}.number`, 2)}' instead of the default '3'.`;
     };
 
-    static override icon = "ic_image";
+    static override icon = 'ic_image';
 
     static override patch(Patcher) {
-        Patcher.instead(MediaItemManager, "getNumMediaItemsPerRow", (self, args, orig) => {
+        Patcher.instead(MediaItemManager, 'getNumMediaItemsPerRow', (self, args, orig) => {
             if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
 
             return get(`${this.key}.number`, 2);
@@ -55,8 +55,8 @@ export default class self extends Patch {
 
         return <View 
             style={{ 
-                alignItems: "center", 
-                flexDirection: "row" 
+                alignItems: 'center', 
+                flexDirection: 'row' 
             }}
         >
             {renderLabel(minimum, disabled)}

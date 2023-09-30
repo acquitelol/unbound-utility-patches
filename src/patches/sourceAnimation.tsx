@@ -4,22 +4,22 @@ import { Patch } from '../common/patch';
 
 const { findByProps } = metro;
 
-const SourceManager = findByProps("getAnimatableSourceWithFallback", { lazy: true });
+const SourceManager = findByProps('getAnimatableSourceWithFallback', { lazy: true });
 
 export default class self extends Patch {
-    static override key = "sourceAnimation";
-    static override title = "Source Animation";
+    static override key = 'sourceAnimation';
+    static override title = 'Source Animation';
 
     static override get subtitle() {
-        return `${get(`${this.key}.animate`, true) ? "Always" : "Never"} animates any sourceable assets (such as Profile Pictures or Guild Icons).`;
+        return `${get(`${this.key}.animate`, true) ? 'Always' : 'Never'} animates any sourceable assets (such as Profile Pictures or Guild Icons).`;
     };
     
     static override get icon() {
-        return get(`${this.key}.animate`, true) ? "play" : "pause";
+        return get(`${this.key}.animate`, true) ? 'play' : 'pause';
     };
     
     static override patch(Patcher) {
-        Patcher.before(SourceManager, "getAnimatableSourceWithFallback", (_, args) => {
+        Patcher.before(SourceManager, 'getAnimatableSourceWithFallback', (_, args) => {
             if (!get(`${this.key}.enabled`)) return;
 
             args[0] = get(`${this.key}.animate`, true);
@@ -30,12 +30,12 @@ export default class self extends Patch {
         const [activeTab, setActiveTab] = React.useState(String(!!get(`${self.key}.animate`, true)));
         const tabs = [
             {
-                id: "false",
-                title: "Non-animated",
+                id: 'false',
+                title: 'Non-animated',
             },
             {
-                id: "true",
-                title: "Animated",
+                id: 'true',
+                title: 'Animated',
             }
         ]
 

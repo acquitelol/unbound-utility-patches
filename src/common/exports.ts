@@ -13,31 +13,31 @@ export const {
     patcher: {
         createPatcher
     }
-} = window["unbound"];
+} = window['unbound'];
 
-export const { BadgableTabBar } = metro.findByProps("BadgableTabBar", { lazy: true });
-export const { GenericHeaderTitle, GenericSubHeaderTitle } = metro.findByProps("GenericHeaderTitle", { lazy: true });
-export const Chat = metro.findByName("Chat");
-export const MessageStore = metro.findStore("Message");
+export const { BadgableTabBar } = metro.findByProps('BadgableTabBar', { lazy: true });
+export const { GenericHeaderTitle, GenericSubHeaderTitle } = metro.findByProps('GenericHeaderTitle', { lazy: true });
+export const Handlers = metro.findByProps('MessagesHandlers');
+export const MessageStore = metro.findStore('Message');
 export const [
     ChatManager,
     { getChannelId }
 ] = metro.findByProps(
-    { params: ["insertText"], lazy: true },
-    { params: ["getLastSelectedChannelId"], lazy: true },
+    { params: ['insertText'], lazy: true },
+    { params: ['getLastSelectedChannelId'], lazy: true },
     { bulk: true }
 );
 
-export const { 
-    NativeModules, 
+export const {
+    NativeModules,
     ScrollView,
-    TouchableOpacity, 
-    View, 
-    Platform, 
-    LayoutAnimation: { 
-        create, 
-        configureNext 
+    TouchableOpacity,
+    View,
+    Platform,
+    LayoutAnimation: {
+        create,
+        configureNext
     },
     processColor
-} = window["ReactNative"];
-export const React = window["React"];
+} = window['ReactNative'];
+export const React = window['React'];

@@ -1,5 +1,5 @@
-import { React, TouchableOpacity, View, configureNext, create, getIDByName, metro, useSettingsStore, utilities } from "./exports";
-import { get } from "./store";
+import { React, TouchableOpacity, View, configureNext, create, getIDByName, metro, useSettingsStore, utilities } from './exports';
+import { get } from './store';
 import manifest from '../../dist/manifest.json';
 
 const {
@@ -21,7 +21,7 @@ export const styles = StyleSheet.createThemedStyleSheet({
     },
 
     shadow: {
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
             width: 1,
             height: 4,
@@ -32,16 +32,16 @@ export const styles = StyleSheet.createThemedStyleSheet({
     },
 
     titles: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
         marginTop: 24,
         marginBottom: 16
     },
 
     section: {
         marginHorizontal: 16,
-        shadowColor: "#000",
+        shadowColor: '#000',
         shadowOffset: {
             width: 1,
             height: 4,
@@ -68,11 +68,11 @@ export const styles = StyleSheet.createThemedStyleSheet({
 
 export const buttons = [
     { 
-        title: "Disable",
+        title: 'Disable',
         value: false
     },
     {
-        title: "Enable",
+        title: 'Enable',
         value: true
     }
 ]
@@ -89,16 +89,16 @@ export const ToggleableSection = ({ title, icon, patches, children, style, ...re
     return <Forms.FormSection
         title={title}
         style={utilities.mergeStyles(style, { opacity: disabled ? 0.5 : 1 })}
-        icon={<View style={{ flexDirection: "row" }}>
+        icon={<View style={{ flexDirection: 'row' }}>
             {icon}
             <TouchableOpacity
                 onPress={() => {
                     Object.keys(patches).forEach(key => settings.set(`${key}.enabled`, disabled));
-                    configureNext(create(300, "keyboard"));
+                    configureNext(create(300, 'keyboard'));
                 }}
             >
                 <Forms.FormRow.Icon 
-                    source={getIDByName(disabled ? "Small" : "Check")} 
+                    source={getIDByName(disabled ? 'Small' : 'Check')} 
                     style={styles.sectionIcon}
                 />
             </TouchableOpacity>
@@ -108,13 +108,13 @@ export const ToggleableSection = ({ title, icon, patches, children, style, ...re
                     configureNext({ 
                         duration: 300,
                         create: { type: 'keyboard', property: 'opacity' },
-                        update: { type: "easeInEaseOut" },
-                        delete: { type: "easeInEaseOut", property: "opacity" }
+                        update: { type: 'easeInEaseOut' },
+                        delete: { type: 'easeInEaseOut', property: 'opacity' }
                     });
                 }}
             >
                 <Forms.FormRow.Icon 
-                    source={getIDByName(`ic_arrow${hidden ? "" : "_down"}`)} 
+                    source={getIDByName(`ic_arrow${hidden ? '' : '_down'}`)} 
                     style={styles.sectionIcon}
                 />
             </TouchableOpacity>

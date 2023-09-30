@@ -1,5 +1,5 @@
 import { NativeModules, processColor, metro, React, View, BadgableTabBar, utilities } from '../common/exports';
-import { lowlight } from "lowlight";
+import { lowlight } from 'lowlight';
 import { get, set } from '../common/store';
 import { getRandomString } from '../common/constants';
 import { Patch } from '../common/patch';
@@ -10,10 +10,10 @@ const { DCDChatManager } = NativeModules;
 const { common: { Theme: { colors, meta, unsafe_rawColors } }, stores: { Theme } } = metro;
 
 export default class self extends Patch {
-    static override key = "codeBlocks";
-    static override title = "Code Blocks";
-    static override subtitle = "Adds proper syntax highlighting to Code Blocks on iOS because Discord didn't.";
-    static override icon = "ic_application_command_24px";
+    static override key = 'codeBlocks';
+    static override title = 'Code Blocks';
+    static override subtitle = 'Adds proper syntax highlighting to Code Blocks on iOS because Discord didn\'t.';
+    static override icon = 'ic_application_command_24px';
 
     private static styles = {
         themed: {
@@ -37,119 +37,119 @@ export default class self extends Patch {
             embed: meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)
         },
         git_hub: {
-            title: "#d2a8ff",
-            attr: "#79c0ff",
-            attribute: "#79c0ff",
-            literal: "#79c0ff",
-            meta: "#79c0ff",
-            number: "#79c0ff",
-            operator: "#79c0ff",
-            variable: "#79c0ff",
-            string: "#a5d6ff",
-            regexp: "#a5d6ff",
-            property: "#a5d6ff",
-            built_in: "#ffa657",
-            symbol: "#ffa657",
-            name: "#7ee787",
-            quote: "#7ee787",
-            function: "#d2a8ff",
-            default: "#c9d1d9",
-            embed: "#a5d6ff"
+            title: '#d2a8ff',
+            attr: '#79c0ff',
+            attribute: '#79c0ff',
+            literal: '#79c0ff',
+            meta: '#79c0ff',
+            number: '#79c0ff',
+            operator: '#79c0ff',
+            variable: '#79c0ff',
+            string: '#a5d6ff',
+            regexp: '#a5d6ff',
+            property: '#a5d6ff',
+            built_in: '#ffa657',
+            symbol: '#ffa657',
+            name: '#7ee787',
+            quote: '#7ee787',
+            function: '#d2a8ff',
+            default: '#c9d1d9',
+            embed: '#a5d6ff'
         },
         monokai: {
-            title: "#c0eb6b",
-            attr: "#c0eb6b",
-            attribute: "#cd96e3",
-            literal: "#fc7eac",
-            meta: "#bdbaad",
+            title: '#c0eb6b',
+            attr: '#c0eb6b',
+            attribute: '#cd96e3',
+            literal: '#fc7eac',
+            meta: '#bdbaad',
             number: null,
             operator: null,
-            variable: "#c0eb6b",
-            string: "#c0eb6b",
-            regexp: "#cd96e3",
+            variable: '#c0eb6b',
+            string: '#c0eb6b',
+            regexp: '#cd96e3',
             property: null,
-            built_in: "#c0eb6b",
-            symbol: "#cd96e3",
-            name: "#fc7eac",
-            quote: "#bdbaad",
+            built_in: '#c0eb6b',
+            symbol: '#cd96e3',
+            name: '#fc7eac',
+            quote: '#bdbaad',
             function: null,
-            default: "#66d9ef",
-            embed: "#c0eb6b"
+            default: '#66d9ef',
+            embed: '#c0eb6b'
         },
         xcode: {
-            title: "#b58de2",
-            attr: "#d4bc73",
-            attribute: "#e677d3",
-            literal: "#e677d3",
-            meta: "#e93835",
-            number: "#c1b8ff",
+            title: '#b58de2',
+            attr: '#d4bc73',
+            attribute: '#e677d3',
+            literal: '#e677d3',
+            meta: '#e93835',
+            number: '#c1b8ff',
             operator: null,
-            variable: "#acced2",
-            string: "#e93835",
-            regexp: "#e93835",
-            property: "#e93835",
-            built_in: "#b58de2",
-            symbol: "#a799ff",
-            name: "#fbd0f4",
-            quote: "#89dc89",
+            variable: '#acced2',
+            string: '#e93835',
+            regexp: '#e93835',
+            property: '#e93835',
+            built_in: '#b58de2',
+            symbol: '#a799ff',
+            name: '#fbd0f4',
+            quote: '#89dc89',
             function: null,
-            default: "#c0c0c0",
-            embed: "#fbd0f4"
+            default: '#c0c0c0',
+            embed: '#fbd0f4'
         }
     }
 
-    private static get colors(): typeof self["styles"][keyof typeof self["styles"]] {
-        return this.styles[get(`${this.key}.style`, "themed")];
+    private static get colors(): typeof self['styles'][keyof typeof self['styles']] {
+        return this.styles[get(`${this.key}.style`, 'themed')];
     };
 
     static parse(content) {
         const embeds: any[] = [];
 
         content = content.filter((item) => {
-            if (typeof item.content === "object") {
+            if (typeof item.content === 'object') {
                 item.content = this.parse(item.content).content
             };
 
-            if (item.type === "codeBlock") {
+            if (item.type === 'codeBlock') {
                 embeds.push({
-                    type: "rich",
+                    type: 'rich',
                     title: [
                         {
-                            type: "text",
-                            content: "Language: "
+                            type: 'text',
+                            content: 'Language: '
                         },
                         {
-                            type: "inlineCode",
+                            type: 'inlineCode',
                             content: item.lang
                         },
                         {
-                            type: "strong",
+                            type: 'strong',
                             content: [{
-                                type: "text",
-                                content: " | "
+                                type: 'text',
+                                content: ' | '
                             }]
                         },
                         {
-                            type: "text",
-                            content: "Lines: "
+                            type: 'text',
+                            content: 'Lines: '
                         },
                         {
-                            type: "inlineCode",
-                            content: item.content.split("\n").length.toString()
+                            type: 'inlineCode',
+                            content: item.content.split('\n').length.toString()
                         },
                         {
-                            type: "strong",
+                            type: 'strong',
                             content: [{
-                                type: "text",
-                                content: " | "
+                                type: 'text',
+                                content: ' | '
                             }]
                         },
                         {
-                            type: "text",
-                            content: "Chars: "
+                            type: 'text',
+                            content: 'Chars: '
                         },
                         {
-                            type: "inlineCode",
+                            type: 'inlineCode',
                             content: item.content.length.toString()
                         }
                     ],
@@ -172,7 +172,7 @@ export default class self extends Patch {
     static format(tree) {
         const results: Node[] = []
      
-        if (tree.type === "text") {
+        if (tree.type === 'text') {
             results.push({
                 text: tree.value,
                 color: null
@@ -181,12 +181,12 @@ export default class self extends Patch {
             return results;
         }
      
-        if (tree.type === "element") {
+        if (tree.type === 'element') {
             tree.children.forEach(child => {
-                if (child.type === "element") return results.push(...this.format(child))
+                if (child.type === 'element') return results.push(...this.format(child))
                 results.push({
                     text: child.value,
-                    color: tree.properties.className[0]?.replace(/hljs-/g, "")
+                    color: tree.properties.className[0]?.replace(/hljs-/g, '')
                 })
             })
         }
@@ -195,7 +195,7 @@ export default class self extends Patch {
     };
 
     static highlight(text: string, language: string) {
-        text = text.split("\n").map((item, i) => `${(i + 1).toString().padStart(2)}  ${item}`).join("\n");
+        text = text.split('\n').map((item, i) => `${(i + 1).toString().padStart(2)}  ${item}`).join('\n');
 
         const highlighted = lowlight.highlight(language, text);
         const formatted: Node[] = highlighted.children
@@ -204,16 +204,16 @@ export default class self extends Patch {
             
         const final = formatted.map(item => {
             return {
-                type: "link",
+                type: 'link',
                 content: [{
-                    type: "text",
+                    type: 'text',
                     content: item.text
                 }],
                 target: 'usernameOnClick',
                 context: {
                     username: 1,
                     usernameOnClick: {
-                        linkColor: processColor(this.colors[item.color ?? "default"])
+                        linkColor: processColor(this.colors[item.color ?? 'default'])
                     },
                     medium: true
                 },
@@ -224,7 +224,7 @@ export default class self extends Patch {
     };
     
     static override patch(Patcher) {
-        Patcher.before(DCDChatManager, "updateRows", (_, args, __) => {
+        Patcher.before(DCDChatManager, 'updateRows', (_, args, __) => {
             if (!get(`${this.key}.enabled`)) return;
 
             const rows = JSON.parse(args[1]);
@@ -244,13 +244,13 @@ export default class self extends Patch {
     };
 
     static override render({ disabled }) {
-        const [activeTab, setActiveTab] = React.useState(get(`${self.key}.style`, "themed"));
+        const [activeTab, setActiveTab] = React.useState(get(`${self.key}.style`, 'themed'));
         const tabs = Object.keys(self.styles).map(style => ({
             id: style,
             title: style
-                .split("_")
+                .split('_')
                 .map(word => utilities.capitalize(word))
-                .join("")
+                .join('')
         }))
 
         return <View 

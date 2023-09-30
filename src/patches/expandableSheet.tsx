@@ -1,25 +1,25 @@
-import { get, set } from "../common/store";
-import { BadgableTabBar, React, View, metro } from "../common/exports";
-import { Patch } from "../common/patch";
+import { get, set } from '../common/store';
+import { BadgableTabBar, React, View, metro } from '../common/exports';
+import { Patch } from '../common/patch';
 
-const { find } = metro;
+const { findByProps } = metro;
 
-const { default: ActionSheet } = find(x => x?.default?.render?.name === "ActionSheet");
+const { ActionSheet } = findByProps('ActionSheet', { all: true }).find(x => !x.hasOwnProperty('useToken'))
 
 export default class self extends Patch {
-    static override key = "expandableSheet";
-    static override title = "Expandable ActionSheets";
+    static override key = 'expandableSheet';
+    static override title = 'Expandable ActionSheets';
 
     static override get subtitle() {
-        return `Forces any User-Profile Action Sheets to always initially render as ${get(`${this.key}.expand`) ? "" : "non-"}expanded.`;
+        return `Forces any User-Profile Action Sheets to always initially render as ${get(`${this.key}.expand`) ? '' : 'non-'}expanded.`;
     };
 
     static override get icon() {
-        return `ic_chevron_${get(`${this.key}.expand`, false) ? "up" : "down" }_24px`;   
+        return `ic_chevron_${get(`${this.key}.expand`, false) ? 'up' : 'down' }_24px`;   
     };
 
     static override patch(Patcher) {
-        Patcher.before(ActionSheet, "render", (_, args) => {
+        Patcher.before(ActionSheet, 'render', (_, args) => {
             if (!args[0].startExpanded || !get(`${this.key}.enabled`)) return;
 
             args[0].startExpanded = get(`${this.key}.expand`, false);
@@ -30,12 +30,12 @@ export default class self extends Patch {
         const [activeTab, setActiveTab] = React.useState(String(!!get(`${self.key}.expand`, false)));
         const tabs = [
             {
-                id: "false",
-                title: "Non-expanded",
+                id: 'false',
+                title: 'Non-expanded',
             },
             {
-                id: "true",
-                title: "Expanded",
+                id: 'true',
+                title: 'Expanded',
             }
         ]
 
