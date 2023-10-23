@@ -1,6 +1,5 @@
 import { NativeModules, processColor, metro, React, View, BadgableTabBar, utilities } from '../common/exports';
 import { lowlight } from 'lowlight';
-import { get, set } from '../common/store';
 import { getRandomString } from '../common/constants';
 import { Patch } from '../common/patch';
 
@@ -99,7 +98,7 @@ export default class self extends Patch {
     }
 
     private static get colors(): typeof self['styles'][keyof typeof self['styles']] {
-        return this.styles[get(`${this.key}.style`, 'themed')];
+        return this.styles[this.get('style', 'themed')];
     };
 
     static parse(content) {
@@ -225,7 +224,7 @@ export default class self extends Patch {
     
     static override patch(Patcher) {
         Patcher.before(DCDChatManager, 'updateRows', (_, args, __) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             const rows = JSON.parse(args[1]);
 
@@ -244,7 +243,7 @@ export default class self extends Patch {
     };
 
     static override render({ disabled }) {
-        const [activeTab, setActiveTab] = React.useState(get(`${self.key}.style`, 'themed'));
+        const [activeTab, setActiveTab] = React.useState(self.get('style', 'themed'));
         const tabs = Object.keys(self.styles).map(style => ({
             id: style,
             title: style
@@ -264,7 +263,7 @@ export default class self extends Patch {
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabSelected={(tab: string) => !disabled && (
-                    set(`${self.key}.style`, tab), 
+                    self.set('style', tab), 
                     setActiveTab(tab)
                 )}
             />

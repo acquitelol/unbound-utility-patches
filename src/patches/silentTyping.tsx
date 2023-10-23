@@ -1,5 +1,4 @@
 import { metro, utilities } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps } = metro;
@@ -17,7 +16,7 @@ export default class extends Patch {
     static override patch(Patcher) {
         props.forEach(prop => {
             Patcher.instead(TypingModule, prop, (self, args, orig) => {
-                return get(`${this.key}.enabled`) ? noop() : orig.apply(self, args);
+                return this.enabled ? noop() : orig.apply(self, args);
             })
         })
     }

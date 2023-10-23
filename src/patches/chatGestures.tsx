@@ -1,5 +1,4 @@
 import { ChatManager, Handlers, MessageStore, Platform, getChannelId, metro } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps, stores: { Users } } = metro;
@@ -29,7 +28,7 @@ export default class extends Patch {
     private static patchTapMessage(Patcher, res) {
         if (res?.handleTapMessage) {
             this.handler.unpatchTapMessage = Patcher.after(res, 'handleTapMessage', (_, [{ nativeEvent }]) => {
-                if (!get(`${this.key}.enabled`)) return;
+                if (!this.enabled) return;
                 
                 const ChannelID = nativeEvent.channelId;
                 const MessageID = nativeEvent.messageId;
@@ -58,7 +57,7 @@ export default class extends Patch {
     private static patchTapUsername(Patcher, res) {
         if (res?.handleTapUsername && Platform.OS !== 'android') {
             this.handler.unpatchTapUsername = Patcher.instead(res, 'handleTapUsername', (self, args, orig) => {
-                if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
+                if (!this.enabled) return orig.apply(self, args);
 
                 const { messageId } = args[0].nativeEvent;
                 const channelId = getChannelId();
@@ -77,9 +76,19 @@ export default class extends Patch {
     }
 
     static override patch(Patcher) {
-        Patcher.after(Handlers, 'MessagesHandlers', (_, __, res) => {
-            this.patchTapMessage(Patcher, res);
-            this.patchTapUsername(Patcher, res);
-        }, true);
+        const self = this;
+        const origParams = Object.getOwnPropertyDescriptor(Handlers.MessagesHandlers.prototype, 'params')?.get;
+
+        origParams && Object.defineProperty(Handlers.MessagesHandlers.prototype, 'params', {
+            configurable: true,
+            get() {
+                if (this) {
+                    self.patchTapMessage(Patcher, this);
+                    self.patchTapUsername(Patcher, this);
+                }
+
+                return origParams.call(this);
+            }
+        });
     }
 };

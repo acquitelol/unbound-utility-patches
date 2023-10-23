@@ -16,13 +16,13 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.after(FormLabel, 'default', (_, __, res) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             res.props.color === 'header-primary' && (res.props.color = 'text-normal');
         })
 
         Patcher.after(CardModule, 'Card', (_, __, res) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             const text = findInReactTree(res, x => 
                 typeof x.props?.children === 'string'

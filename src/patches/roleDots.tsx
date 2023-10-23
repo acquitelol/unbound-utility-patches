@@ -1,5 +1,4 @@
 import { NativeModules } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { DCDChatManager } = NativeModules;
@@ -12,7 +11,7 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.before(DCDChatManager, 'updateRows', (_, args) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
             
             const rows = JSON.parse(args[1]);
 

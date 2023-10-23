@@ -1,5 +1,4 @@
 import { metro } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByName } = metro;
@@ -12,11 +11,11 @@ export default class extends Patch {
     static override title = 'Remove Call';
     static override subtitle = 'Removes the call and video buttons from inside of user profiles to prevent mistaps.';
     static override get icon() {
-        return `ic_${get(`${this.key}.enabled`) ? 'hide' : 'show'}_password`
+        return `ic_${this.enabled ? 'hide' : 'show'}_password`
     }
 
     private static removeButtons(buttons) {
-        if (!buttons || !get(`${this.key}.enabled`)) return;
+        if (!buttons || !this.enabled) return;
         
         delete buttons[1];
         delete buttons[2];

@@ -1,5 +1,4 @@
 import { metro } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps } = metro;
@@ -14,7 +13,7 @@ export default class extends Patch {
     
     static override patch(Patcher) {
         Patcher.before(MediaManager, 'downloadMediaAsset', (_, args) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             const [uri]: [string] = args;
             const prefix = '.tenor.com';

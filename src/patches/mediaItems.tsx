@@ -1,5 +1,4 @@
 import { React, View, metro } from '../common/exports';
-import { get, set } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { 
@@ -36,16 +35,16 @@ export default class self extends Patch {
     static override title = 'Media Items';
 
     static override get subtitle() {
-        return `Changes the amount of items per row in media picker to '${get(`${this.key}.number`, 2)}' instead of the default '3'.`;
+        return `Changes the amount of items per row in media picker to '${this.get('number', 2)}' instead of the default '3'.`;
     };
 
-    static override icon = 'ic_image';
+    static override icon = 'ImageTextIcon';
 
     static override patch(Patcher) {
         Patcher.instead(MediaItemManager, 'getNumMediaItemsPerRow', (self, args, orig) => {
-            if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
+            if (!this.enabled) return orig.apply(self, args);
 
-            return get(`${this.key}.number`, 2);
+            return this.get('number', 2);
         });
     };
     
@@ -61,14 +60,14 @@ export default class self extends Patch {
         >
             {renderLabel(minimum, disabled)}
             <Slider
-                value={get(`${self.key}.number`, 2)}
+                value={self.get('number', 2)}
                 minimumValue={minimum}
                 maximumValue={maximum}
                 style={{ flex: 1 }}
                 minimumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)}
                 maximumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.BACKGROUND_PRIMARY)}
                 step={1}
-                onValueChange={(value: number) => set(`${self.key}.number`, value)}
+                onValueChange={(value: number) => self.set('number', value)}
                 disabled={disabled}
                 tapToSeek
             />

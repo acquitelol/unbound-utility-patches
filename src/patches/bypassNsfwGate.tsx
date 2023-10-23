@@ -1,5 +1,4 @@
 import { metro } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps, stores: { Users } } = metro;
@@ -16,12 +15,12 @@ export default class extends Patch {
         ['handleNSFWGuildInvite', 'isNSFWInvite', 'shouldNSFWGateGuild']
             .forEach(prop => {
                 Patcher.instead(NSFWManager, prop, (self, args, orig) => {
-                    return get(`${this.key}.enabled`) ? false : orig.apply(self, args)
+                    return this.enabled ? false : orig.apply(self, args)
                 })
             })
 
         Patcher.after(Users, 'getCurrentUser', (_, __, res) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             res?.hasOwnProperty('nsfwAllowed') && (res.nsfwAllowed = true)
         });

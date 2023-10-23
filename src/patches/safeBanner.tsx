@@ -1,5 +1,4 @@
 import { View } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 export default class extends Patch {
@@ -10,7 +9,7 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.before(View, 'render', (_, args) => {
-            if (!get(`${this.key}.enabled`) || args[0]?.nativeID !== 'you-screen-native-id') return;
+            if (!this.enabled || args[0]?.nativeID !== 'you-screen-native-id') return;
 
             args[0].style = [args[0].style, { marginTop: 48 }]
         });

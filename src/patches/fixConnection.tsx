@@ -1,5 +1,4 @@
 import { metro } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { common: { Dispatcher } } = metro;
@@ -14,7 +13,7 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.after(AuthenticationUtilities, 'startSession', () => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
             
             setTimeout(() => {
                 if (!AuthenticationStore.getSessionId()) {

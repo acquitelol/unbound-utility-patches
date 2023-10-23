@@ -1,4 +1,3 @@
-import { get, set } from '../common/store';
 import { BadgableTabBar, React, View, metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
@@ -11,23 +10,23 @@ export default class self extends Patch {
     static override title = 'Expandable ActionSheets';
 
     static override get subtitle() {
-        return `Forces any User-Profile Action Sheets to always initially render as ${get(`${this.key}.expand`) ? '' : 'non-'}expanded.`;
+        return `Forces any User-Profile Action Sheets to always initially render as ${this.get('expand') ? '' : 'non-'}expanded.`;
     };
 
     static override get icon() {
-        return `ic_chevron_${get(`${this.key}.expand`, false) ? 'up' : 'down' }_24px`;   
+        return `ic_chevron_${this.get('expand', false) ? 'up' : 'down' }_24px`;   
     };
 
     static override patch(Patcher) {
         Patcher.before(ActionSheet, 'render', (_, args) => {
-            if (!args[0].startExpanded || !get(`${this.key}.enabled`)) return;
+            if (!args[0].startExpanded || !this.enabled) return;
 
-            args[0].startExpanded = get(`${this.key}.expand`, false);
+            args[0].startExpanded = this.get('expand', false);
         })
     };
 
     static override render({ disabled }) {
-        const [activeTab, setActiveTab] = React.useState(String(!!get(`${self.key}.expand`, false)));
+        const [activeTab, setActiveTab] = React.useState(String(!!self.get('expand', false)));
         const tabs = [
             {
                 id: 'false',
@@ -50,7 +49,7 @@ export default class self extends Patch {
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabSelected={(tab: string) => !disabled && (
-                    set(`${self.key}.expand`, JSON.parse(tab)), 
+                    self.set('expand', JSON.parse(tab)), 
                     setActiveTab(tab)
                 )}
             />

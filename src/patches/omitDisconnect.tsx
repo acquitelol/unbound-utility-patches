@@ -1,5 +1,4 @@
 import { metro, utilities } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps } = metro;
@@ -15,7 +14,7 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.before(Timeout.prototype, 'start', (_, args) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
             args[1].name === 'disconnect' && (args[1] = noop);
         });

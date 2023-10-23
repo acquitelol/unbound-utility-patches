@@ -1,5 +1,4 @@
 import { ChatManager } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 export default class extends Patch {
@@ -10,7 +9,7 @@ export default class extends Patch {
 
     static override patch(Patcher) {
         Patcher.instead(ChatManager, 'selectGIF', (self, args, orig) => {
-            if (!get(`${this.key}.enabled`)) return orig.apply(self, args);
+            if (!this.enabled) return orig.apply(self, args);
 
             ChatManager.insertText(args[0], args[1]?.url ?? '');
         });

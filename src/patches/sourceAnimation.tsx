@@ -1,5 +1,4 @@
 import { BadgableTabBar, React, View, metro } from '../common/exports';
-import { get, set } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByProps } = metro;
@@ -11,23 +10,23 @@ export default class self extends Patch {
     static override title = 'Source Animation';
 
     static override get subtitle() {
-        return `${get(`${this.key}.animate`, true) ? 'Always' : 'Never'} animates any sourceable assets (such as Profile Pictures or Guild Icons).`;
+        return `${this.get('animate', true) ? 'Always' : 'Never'} animates any sourceable assets (such as Profile Pictures or Guild Icons).`;
     };
     
     static override get icon() {
-        return get(`${this.key}.animate`, true) ? 'play' : 'pause';
+        return this.get('animate', true) ? 'play' : 'pause';
     };
     
     static override patch(Patcher) {
         Patcher.before(SourceManager, 'getAnimatableSourceWithFallback', (_, args) => {
-            if (!get(`${this.key}.enabled`)) return;
+            if (!this.enabled) return;
 
-            args[0] = get(`${this.key}.animate`, true);
+            args[0] = this.get('animate', true);
         });
     };
 
     static override render({ disabled }) {
-        const [activeTab, setActiveTab] = React.useState(String(!!get(`${self.key}.animate`, true)));
+        const [activeTab, setActiveTab] = React.useState(String(!!self.get('animate', true)));
         const tabs = [
             {
                 id: 'false',
@@ -50,7 +49,7 @@ export default class self extends Patch {
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabSelected={(tab: string) => !disabled && (
-                    set(`${self.key}.animate`, JSON.parse(tab)), 
+                    self.set('animate', JSON.parse(tab)),
                     setActiveTab(tab)
                 )}
             />
