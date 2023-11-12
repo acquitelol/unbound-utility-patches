@@ -12,7 +12,7 @@ const {
     }
 } = metro;
 
-export const styles = StyleSheet.createThemedStyleSheet({
+export const useStyles = StyleSheet.createStyles({
     navigation: {
         paddingHorizontal: 16,
         paddingBottom: 16,
@@ -81,6 +81,7 @@ export const ToggleableSection = ({ title, icon, patches, children, style, ...re
     const [hidden, setHidden] = React.useState(get(`${title}.hidden`, false));
     const disabled = Object.keys(patches).every(key => !get(`${key}.enabled`));
     const settings = useSettingsStore(manifest.name);
+    const styles = useStyles();
 
     React.useEffect(() => {
         settings.set(`${title}.hidden`, hidden);
