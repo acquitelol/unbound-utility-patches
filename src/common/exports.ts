@@ -38,6 +38,7 @@ export const {
         create,
         configureNext
     },
-    processColor
+    processColor,
+    Image
 } = window['ReactNative'];
 export const React = window['React'];

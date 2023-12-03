@@ -64,6 +64,21 @@ export const useStyles = StyleSheet.createStyles({
     space: {
         marginBottom: 50
     },
+
+    search: {
+		margin: 0,
+		marginTop: 5,
+		padding: 10,
+		borderBottomWidth: 0,
+		background: 'none',
+		backgroundColor: 'none',
+	},
+
+	icon: {
+		tintColor: Theme.colors.INTERACTIVE_NORMAL,
+		width: 16,
+		height: 16
+	}
 });
 
 export const buttons = [
