@@ -1,10 +1,9 @@
-import { metro } from '../common/exports';
+import { findInReactTree, getIDByName, metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
 const { findByName } = metro;
 
-const UserProfileHeader = findByName('UserProfileHeader', { interop: false });
-const UserProfileActions = findByName('UserProfileActions', { interop: false });
+const UserProfileActions = findByName("UserProfileActions", { interop: false });
 
 export default class extends Patch {
     static override key = 'removeCall';
@@ -22,18 +21,13 @@ export default class extends Patch {
     }
 
     static override patch(Patcher) {
-        Patcher.after(UserProfileHeader, 'default', (_, __, res) => {
-            const buttons = res?.props?.children?.[4]?.props?.children;
-            if (!buttons) return;
+        Patcher.after(UserProfileActions, "default", (_, __, res) => {
+            if(!this.enabled) return;
 
+            const videoCallAsset = getIDByName("ic_video");
+            const buttons = findInReactTree(res, r => r.find(x => x?.props?.icon === videoCallAsset))
+                
             this.removeButtons(buttons);
-        });
-
-        Patcher.after(UserProfileActions, 'default', (_, __, res) => {
-            const buttons = res?.props?.children?.props?.children[1]?.props?.children;
-            if (!buttons) return;
-
-            this.removeButtons(buttons);
-        });
+        })
     }
 };

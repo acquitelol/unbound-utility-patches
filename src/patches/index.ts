@@ -19,7 +19,7 @@ import expandableSheet from './expandableSheet';
 
 export const sections = {
     recommended: {
-        icon: 'img_nitro_star',
+        icon: 'feature_star',
         patches: {
             headerPrimary,
             tenorFix,

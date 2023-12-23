@@ -1,4 +1,4 @@
-import { React, TouchableOpacity, View, configureNext, create, getIDByName, metro, useSettingsStore, utilities } from './exports';
+import { Forms, React, TouchableOpacity, View, configureNext, create, getIDByName, metro, useSettingsStore, utilities } from './exports';
 import { get } from './store';
 import manifest from '../../dist/manifest.json';
 
@@ -6,9 +6,6 @@ const {
     common: {
         StyleSheet,
         Theme
-    },
-    components: {
-        Forms
     }
 } = metro;
 
@@ -97,10 +94,6 @@ export const ToggleableSection = ({ title, icon, patches, children, style, ...re
     const disabled = Object.keys(patches).every(key => !get(`${key}.enabled`));
     const settings = useSettingsStore(manifest.name);
     const styles = useStyles();
-
-    React.useEffect(() => {
-        settings.set(`${title}.hidden`, hidden);
-    }, [hidden])
 
     return <Forms.FormSection
         title={title}

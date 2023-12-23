@@ -1,10 +1,9 @@
-import { React, View, metro } from '../common/exports';
+import { Forms, React, View, metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
 const { 
     findByProps, 
-    components: { 
-        Forms, 
+    components: {
         Slider 
     }, 
     common: { 
