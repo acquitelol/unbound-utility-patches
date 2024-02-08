@@ -3,7 +3,7 @@ import { get } from './store';
 import manifest from '../../dist/manifest.json';
 
 const {
-    common: {
+    Common: {
         StyleSheet,
         Theme
     }

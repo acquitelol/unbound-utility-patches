@@ -6,7 +6,7 @@ import { Patch } from '../common/patch';
 type Node = { text: string | null; color: string | null };
 
 const { DCDChatManager } = NativeModules;
-const { common: { Theme: { colors, meta, unsafe_rawColors } }, stores: { Theme } } = metro;
+const { Common: { Theme: { colors, internal, unsafe_rawColors } }, Stores: { Theme } } = metro;
 
 export default class self extends Patch {
     static override key = 'codeBlocks';
@@ -33,7 +33,7 @@ export default class self extends Patch {
             quote: unsafe_rawColors.PRIMARY_200,
             function: unsafe_rawColors.BRAND_260,
             default: unsafe_rawColors.WHITE_100,
-            embed: meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)
+            embed: internal.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)
         },
         git_hub: {
             title: '#d2a8ff',

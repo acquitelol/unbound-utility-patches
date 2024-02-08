@@ -3,16 +3,16 @@ import { Patch } from '../common/patch';
 
 const { 
     findByProps, 
-    components: {
+    Components: {
         Slider 
     }, 
-    common: { 
+    Common: { 
         Theme: { 
-            meta, 
+            internal, 
             colors 
         } 
     },
-    stores: {
+    Stores: {
         Theme
     }
 } = metro;
@@ -63,8 +63,8 @@ export default class self extends Patch {
                 minimumValue={minimum}
                 maximumValue={maximum}
                 style={{ flex: 1 }}
-                minimumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)}
-                maximumTrackTintColor={meta.resolveSemanticColor(Theme.theme, colors.BACKGROUND_PRIMARY)}
+                minimumTrackTintColor={internal.resolveSemanticColor(Theme.theme, colors.HEADER_PRIMARY)}
+                maximumTrackTintColor={internal.resolveSemanticColor(Theme.theme, colors.BACKGROUND_PRIMARY)}
                 step={1}
                 onValueChange={(value: number) => self.set('number', value)}
                 disabled={disabled}

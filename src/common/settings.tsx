@@ -13,14 +13,13 @@ import {
     metro,
     useSettingsStore,
     utilities,
-    components,
     Forms
 } from './exports';
 import { buttons, useStyles, ToggleableSection } from './constants';
 import manifest from '../../dist/manifest.json';
 
 const {
-    components: {
+    Components: {
         Redesign: {
             TableSwitchRow,
             TableRowIcon,
@@ -29,7 +28,7 @@ const {
     }
 } = metro;
 
-const { Search } = components;
+const { Search } = metro.Custom;
 
 export default () => {
     const settings = useSettingsStore(manifest.name);

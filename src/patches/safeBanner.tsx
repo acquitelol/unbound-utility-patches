@@ -5,7 +5,7 @@ export default class extends Patch {
     static override key = 'safeBanner';
     static override title = 'Safe Banner';
     static override subtitle = 'Adds significant top margin to the YouScreen to push it out of the Status Bar.';
-    static override icon = 'ic_gridview';
+    static override icon = 'ic_grid_24px';
 
     static override patch(Patcher) {
         Patcher.before(View, 'render', (_, args) => {

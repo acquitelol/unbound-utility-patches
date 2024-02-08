@@ -1,7 +1,7 @@
 import { metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
-const { common: { Dispatcher } } = metro;
+const { Common: { Dispatcher } } = metro;
 const AuthenticationUtilities = metro.findByProps('startSession', { lazy: true });
 const AuthenticationStore = metro.findStore('Authentication');
 

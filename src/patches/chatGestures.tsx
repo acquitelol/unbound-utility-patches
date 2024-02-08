@@ -1,7 +1,7 @@
 import { ChatManager, Handlers, MessageStore, Platform, getChannelId, metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
-const { findByProps, stores: { Users } } = metro;
+const { findByProps, Stores: { Users } } = metro;
 
 const Messages = findByProps('sendMessage', 'startEditMessage', { lazy: true });
 

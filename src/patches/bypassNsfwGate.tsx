@@ -1,7 +1,7 @@
 import { metro } from '../common/exports';
 import { Patch } from '../common/patch';
 
-const { findByProps, stores: { Users } } = metro;
+const { findByProps, Stores: { Users } } = metro;
 
 const NSFWManager = findByProps('isNSFWInvite', { lazy: true });
 
