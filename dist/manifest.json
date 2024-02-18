@@ -1,7 +1,7 @@
 {
     "name": "UtilityPatches",
     "id": "rosie.utilitypatches",
-    "bundle": "http://rosies-macbook-air.local:5495/bundle.js",
+    "main": "bundle.js",
     "version": "1.2.5",
     "icon": "debug",
     "description": "Minor patches/fixes all bundled into a single plugin for convenience.",

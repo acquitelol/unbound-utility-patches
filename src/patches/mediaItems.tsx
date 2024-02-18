@@ -3,16 +3,16 @@ import { Patch } from '../common/patch';
 
 const { 
     findByProps, 
-    Components: {
+    components: {
         Slider 
     }, 
-    Common: { 
+    common: { 
         Theme: { 
             internal, 
             colors 
         } 
     },
-    Stores: {
+    stores: {
         Theme
     }
 } = metro;

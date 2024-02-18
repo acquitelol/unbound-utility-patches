@@ -6,7 +6,7 @@ import { Patch } from '../common/patch';
 type Node = { text: string | null; color: string | null };
 
 const { DCDChatManager } = NativeModules;
-const { Common: { Theme: { colors, internal, unsafe_rawColors } }, Stores: { Theme } } = metro;
+const { common: { Theme: { colors, internal, unsafe_rawColors } }, stores: { Theme } } = metro;
 
 export default class self extends Patch {
     static override key = 'codeBlocks';

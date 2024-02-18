@@ -1,5 +1,4 @@
 import { metro, utilities } from '../common/exports';
-import { get } from '../common/store';
 import { Patch } from '../common/patch';
 
 const { findByName, findByProps } = metro;
@@ -24,13 +23,22 @@ export default class extends Patch {
         Patcher.after(CardModule, 'Card', (_, __, res) => {
             if (!this.enabled) return;
 
-            const text = findInReactTree(res, x => 
-                typeof x.props?.children === 'string'
-                && typeof x.props?.variant === 'string'
-            )
+            const inner = findInReactTree(res, x => x.children.type?.name === 'TableRowInner');
 
-            if (!text) return;
-            if (text.props.color === 'header-primary') text.props.color = 'text-normal';
+            if (!inner) return;
+
+            // This nested patching is bad but I can't unpatch either of these under any circumstances
+            Patcher.after(inner.children, 'type', (_, __, res) => {
+                if (!this.enabled) return;
+
+                const text = findInReactTree(res, x => 
+                    typeof x.props?.children === 'string'
+                    && typeof x.props?.variant === 'string'
+                )
+    
+                if (!text) return;
+                if (text.props.color === 'header-primary') text.props.color = 'text-normal';
+            })
         });
     }
 };
